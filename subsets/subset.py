@@ -1,3 +1,4 @@
+#creates a subdataset from an existing csv dataset
 import csv
 import random
 
