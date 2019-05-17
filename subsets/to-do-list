@@ -1,0 +1,15 @@
+Lista:
+
+  amostraAt = np.sort(np.random.choice(numLinha, arredondar(numLinha*percentaggeatt), replace=False))
+  amostraInst = np.sort(np.random.choice(3, 3, replace=False))
+
+  hyper= HyperPipes();
+
+  data_x = data[:,0:n_cols-1] -> salva os atributos
+  data_y = data[:,n_cols-1]     -> salva as instancias
+
+  *pegar um exemplo de experimento do scitklearn que use (kfold, crossvalidation) rodá-lo e usar o hyperpipes do Allan
+
+  *pegar o subset, diminuí-lo e fazer a previsão nesse pedaço menor
+
+  próx. reunião(crossvalidation para pegar o subset e fazer a previsão)
