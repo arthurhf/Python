@@ -1,2 +1,2 @@
 # Python
-Algumas coisas que eu fiz em python
+Algumas coisas que eu fiz/adaptei de terceiros em python
