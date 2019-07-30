@@ -2,7 +2,7 @@ import numpy as np
 
 
 class HyperPipe:
-
+    
     def __init__(self):
         self.n_dimensions = 0
         self.numerical_bounds = []
@@ -10,20 +10,13 @@ class HyperPipe:
     def fit(self, data_x, target_class):
         self.target_class = target_class
         self.n_dimensions = data_x.shape[1]
-        #print("\n\n\n self.n_dimensions = ", self.n_dimensions)
-        self.attributes = np.zeros((self.n_dimensions, len(data_x)))
-
-        for j in range(self.n_dimensions):
-            for i in range(len(data_x)):
-                self.attributes[j][i]=data_x[i][j]
 
         # Initializes bounds
         for i in range(self.n_dimensions):
             bounds = []
-            bounds.append(np.amax(self.attributes[i]))  # lower bound
-            bounds.append(np.amin(self.attributes[i]))  # upper bound
+            bounds.append(float('+inf'))  # lower bound
+            bounds.append(float('-inf'))  # upper bound
             self.numerical_bounds.append(bounds)
-            print("\n\n\n numerical_bounds = ", self.numerical_bounds)
 
         # Add instances
         for i in range(data_x.shape[0]):
@@ -59,23 +52,13 @@ class HyperPipes:
     def fit(self, data_x, data_y):
         self.y_unique_values, self.y_unique_indices = np.unique(
             data_y, return_inverse=True)
-        #print("\n\nself.y_unique_values = ", self.y_unique_values)
-        #print("\n\nself.y_unique_indices = ", self.y_unique_indices)
-
         self.n_y_unique = self.y_unique_values.shape[0]
-        #print("\n\nself.n_y_unique = ", self.n_y_unique)
-
         self.hyper_pipes = [HyperPipe() for i in range(self.n_y_unique)]
-        #print("\n\nself.hyper_pipes = ", self.hyper_pipes)
 
         for i in range(self.n_y_unique):
             target_class = self.y_unique_values[i]
             target_class_indices = np.where(data_y == target_class)
-            #print("\n\ntarget_class_indices = ", target_class_indices)
-
-            """pega os atributos da classe"""
             data_x_filtered = data_x[target_class_indices]
-            #print("\n\ndata_x_filtered = ", data_x_filtered )
             self.hyper_pipes[i].fit(data_x_filtered, target_class)
 
         return None
