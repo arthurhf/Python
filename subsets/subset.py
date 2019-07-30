@@ -1,75 +1,38 @@
 import csv
 import numpy as np
 from hyperpipes import hyperPipes
+from sklearn.datasets import load_iris
 
 
 class Subset:
 
 
-    def createsubset(self, dataset, percentageatt, percentageinst, classes):
+    def createsubset(self, dataset,wantedSize, percentageatt, percentageinst, classes):
 
-        set = dataset
-
-        numLinha = 0
-        #set = []
         subset = []
 
-        #with open(file, 'r') as ficheiro:
-        #    reader = csv.reader(ficheiro, delimiter=',', quoting=csv.QUOTE_NONE)
-
-            #for linha in reader:
-            #    ncol = len(linha)
-            #    set.append(linha)
-            #    numLinha += 1
-        for linha in set:
-            ncol = len(linha)
-            set.append(linha)
-            numLinha += 1
-        print(set)
+        ncol = len(dataset[0])
+        numLinha = len(dataset)
 
         print("\n\n{} colunas no DataSet".format(ncol))
         print("{} linhas no DataSet".format(numLinha))
-        for index in set:
-            print(index)
 
-            # ini = random.randrange(0, numLinha, 1)
-            # print("\n\n{} linhas no SubSet".format(ini))
+        array = np.array(dataset)
+        print("Printing 2D Array")
+        print(array)
+        print("Choose {} multiple random row from 2D array".format(wantedSize))
+        randomRows = np.random.randint(5, size=wantedSize)
 
-            # for i in range(ini):
-            # print(i)
-            # print(set[i])
-            #   subset.append(set[i])
-            # print(subset)
+        for i in randomRows:
+            subset.append(array[i,:])
 
-            # for indexx in subset:
-            #   print(indexx)
+        print(np.array(subset))
 
-        #mudar a forma de pegar linhas e colunas: aleatoriamente e não no intervalo
-        amostraAt = np.sort(np.random.choice(numLinha, round(numLinha * percentageatt), replace=False))
-        # amostraAt = np.sort(np.random.choice(numLinha, 5, replace=False))
-        # amostraInst = np.sort(np.random.choice(percentageinst, 3, replace=False))???????????
-        amostraInst = np.sort(np.random.choice(ncol, round(ncol * percentageinst), replace=False))
+def main():
+    iris = load_iris()
+    data = iris.data
+    s=Subset()
+    s.createsubset(data, 10, 1.5, 1.5, 1.5)
 
-        # print("\n\n" + amostraAt + "\n\n" + amostraInst)
-
-        for i in amostraAt:
-            # print(i)
-            # print(set[i])
-            subset.append(set[i])
-            print(i)
-
-        print(subset)
-        #return subset
-
-        subsetInst = np.array(set)[amostraInst, :]
-        subsetAtr = np.array(set)[:, amostraAt]
-
-        print(subsetAtr)
-        print(subsetInst)
-
-
-        #retornar uma tupla ([atributos], [classes])
-
-        #hyper = HyperPipes()
-        #hyper.fit(subset[:, 0:ncol-1], subset[:, ncol-1])
-        #return hyper
+if __name__ == '__main__':
+    main()
