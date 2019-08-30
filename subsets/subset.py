@@ -26,6 +26,7 @@ class Subset:
         subset = np.array(almostSubset)
         subset = subset.transpose()
         print(subset)
+        return subset
 
     def reduceInstance(self, dataset, percentage):
 
