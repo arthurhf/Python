@@ -1,7 +1,7 @@
 from numpy import genfromtxt, array
 from hyperPipes import HyperPipes
 
-'''file_name = '../../datasets/iris'''''
+'''file_name = 'datasets/iris'''''
 from sklearn.datasets import load_iris
 iris = load_iris()
 print(iris.data)
