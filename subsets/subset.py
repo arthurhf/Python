@@ -1,11 +1,6 @@
 import csv
 import numpy as np
-from hyperpipes import hyperPipes
 from sklearn.datasets import load_iris
-
-'juntar o dataset com as classes para não perder os atributos que pertencem àquela classe'
-'depois de selecionar as linhas, inverter linhas e colunas para selecionar as colunas (não misturar com as classes)'
-'inverter de novo para devolver as linhas como linhas e colunas como colunas'
 
 class Subset:
     'atributos = colunas'
