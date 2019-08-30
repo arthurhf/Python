@@ -2,7 +2,7 @@ import statistics
 from statistics import mode
 from hyperpipes import hyperPipes
 from randomforest import randomForest
-from subsets import subset
+from subsets.subset import Subset
 from sklearn.datasets import load_iris
 
 class HybridForest:
@@ -21,11 +21,11 @@ class HybridForest:
 
         for i in range (self.nDeClassificadores):
             subset = Subset()
-            self.bd.append(subset.createsubset(data_x, percentageatt, percentageinst, classes))
+            self.bd.append(subset.createsubset(data_x, self.percentageatt, self.percentageinst, classes))
             # data_x_filtered, classes_filtered = bd[i] ver se separa objetos das classes
-            data_x_filtered = bd[i][0:(len(bd[i])-1)]
+            data_x_filtered = self.bd[i][0:(len(bd[i])-1)]
             print(data_x_filtered)
-            classes_filtered = bd[i][(len(bd[i])-1)]
+            classes_filtered = self.bd[i][(len(bd[i])-1)]
             print("\n\n\n classes = ")
             print(classes_filtered)
             classificador = random.randint(1,3)
