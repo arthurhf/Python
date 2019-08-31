@@ -71,8 +71,8 @@ class HyperPipes:
         for i in range(self.n_y_unique):
             target_class = self.y_unique_values[i]
             target_class_indices = np.where(data_y == target_class)
-            #print("\n\ntarget_class_indices = ", target_class_indices)
-
+            print("\n\ntarget_class_indices = ", target_class_indices)
+            print("\n\n\n data_x = ", data_x)
             """pega os atributos da classe"""
             data_x_filtered = data_x[target_class_indices]
             #print("\n\ndata_x_filtered = ", data_x_filtered )

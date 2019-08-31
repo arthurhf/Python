@@ -80,7 +80,8 @@ class Subset:
         print(np.array(subsetAux))
         print(np.array(subsetAux.append(classes)))
         return np.array(subsetAux)
-
+        
+        #criar função para reduzir o tamanho do objeto a ser previsto
 
 def main():
     iris = load_iris()
