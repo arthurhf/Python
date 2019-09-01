@@ -5,6 +5,11 @@ from sklearn.datasets import load_iris
 class Subset:
     'atributos = colunas'
     'instancias = linhas'
+
+    def __init__ (self, dataset, percentage):
+        numLinha = len(dataset[0])
+        self.nAttributes= np.random.randint(numLinha, size=int(percentage*numLinha))
+
     def createsubset(self, dataset, percentageatt, percentageinst, classes):
 
         setWithClasses = dataset.tolist()
@@ -25,7 +30,7 @@ class Subset:
         almostSubset = self.reduceAttributes(aux, percentageatt)
         subset = np.array(almostSubset)
         subset = subset.transpose()
-        print(subset)
+        #print(subset)
         return subset
 
     def reduceInstance(self, dataset, percentage):
@@ -35,13 +40,13 @@ class Subset:
         ncol = len(dataset[0])
         numLinha = len(dataset)
 
-        print("\n\n{} colunas no DataSet".format(ncol))
-        print("{} linhas no DataSet".format(numLinha))
+        #print("\n\n{} colunas no DataSet".format(ncol))
+        #print("{} linhas no DataSet".format(numLinha))
 
         array = np.array(dataset)
-        print("Printing 2D Array")
-        print(array)
-        print("Choose {} multiple random row from 2D array".format(int(percentage*numLinha)))
+        #print("Printing 2D Array")
+        #print(array)
+        #print("Choose {} multiple random row from 2D array".format(int(percentage*numLinha)))
         randomRows = np.random.randint(numLinha, size=int(percentage*numLinha))
         randomRowsList = randomRows.tolist()
         arrayList = array.tolist()
@@ -51,7 +56,7 @@ class Subset:
                 subsetAux.append(arrayList[i])
 
         print(np.array(subsetAux))
-        print("Fim reduceInstance \n\n")
+        #print("Fim reduceInstance \n\n")
         return np.array(subsetAux)
 
     def reduceAttributes (self, dataset, percentage):
@@ -62,13 +67,14 @@ class Subset:
         ncol = len(array[0])
         numLinha = len(array)
 
-        print("\n\n{} colunas no DataSet".format(ncol))
-        print("{} linhas no DataSet".format(numLinha))
+        #print("\n\n{} colunas no DataSet".format(ncol))
+        #print("{} linhas no DataSet".format(numLinha))
 
-        print("Printing 2D Array")
-        print(array)
-        print("Choose {} multiple random row from 2D array".format(int(percentage*numLinha)))
-        randomRows = np.random.randint(numLinha, size=int(percentage*numLinha))
+        #print("Printing 2D Array")
+        #print(array)
+        #print("Choose {} multiple random row from 2D array".format(int(percentage*numLinha)))
+        #print("\n\n\n self.nAttributes = ", self.nAttributes)
+        randomRows = self.nAttributes
 
         randomRowsList = randomRows.tolist()
         arrayList = array.tolist()
@@ -79,8 +85,26 @@ class Subset:
 
         print(np.array(subsetAux))
         print(np.array(subsetAux.append(classes)))
-        return np.array(subsetAux)
-        
+        return subsetAux
+
+    def ajustPrediction(self, array):
+        #print("\n\n\n\n ajustPrediction, ")
+        # print("\n\n\n self.nAttributes = ", self.nAttributes)
+        arrayAux= []
+        #print("\n\n\n array = ", array)
+        trans = array.transpose()
+        #print("\n\n\n tranposta = ", trans)
+        transList = trans.tolist()
+        #print(transList)
+        randomRows = self.nAttributes
+
+        for i in randomRows:
+            if not transList[i] in arrayAux:
+                arrayAux.append(transList[i])
+        #print(arrayAux)
+        listAux = np.array(arrayAux).transpose().tolist()
+        #print(listAux)
+        return listAux
         #criar função para reduzir o tamanho do objeto a ser previsto
 
 def main():
