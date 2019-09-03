@@ -43,11 +43,26 @@ class HyperPipe:
         return None
 
     def partial_contains(self, data_x):
+        print("\n\n\n\n\n\n__________________________PARTIAL CONTAINS")
+        print("tentativa classe = ", self.target_class)
+        #print(len(data_x))
+        print(data_x)
+        #print(self.n_dimensions)
+        print(self.numerical_bounds)
         count = 0
-        for i in range(self.n_dimensions):
-            if(data_x[i] > self.numerical_bounds[i][0] and data_x[i] < self.numerical_bounds[i][1]):
-                count += 1
+        for attribute in data_x:
+            print(attribute)
+            for i in range(self.n_dimensions):
+                print(i)
+                #print(data_x[i])
+                print(attribute[i])
+                #if(data_x[i] > self.numerical_bounds[i][0] and data_x[i] < self.numerical_bounds[i][1]):
+                if(attribute[i] > self.numerical_bounds[i][0] and attribute[i] < self.numerical_bounds[i][1]):
+                #if (all(item > self.numerical_bounds[i][0] and item < self.numerical_bounds[i][1] for item in data_x[i])):
+                    count += 1
+                    print("count = ", count)
         score = float(count) / self.n_dimensions
+        print("score = ", score)
 
         return (score, self.target_class)
 
@@ -86,6 +101,14 @@ class HyperPipes:
         scores = []
         for i in range(self.n_y_unique):
             scores.append(self.hyper_pipes[i].partial_contains(data_x))
+        print("\n\n\n Hyperpipes scores = ", scores)
+        classe = max(scores,key=itemgetter(0))[1]
+        return classe
+
+    def predict2(self, hyperpipes, data_x):
+        scores = []
+        for i in range(hyperpipes):
+            scores.append(hyperpipes[i].partial_contains(data_x))
         print("\n\n\n Hyperpipes scores = ", scores)
         classe = max(scores,key=itemgetter(0))[1]
         return classe

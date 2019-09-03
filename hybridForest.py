@@ -1,11 +1,12 @@
 import statistics
 from statistics import mode
-from hyperpipes.hyperPipes import HyperPipes
+from hyperpipes.hyperPipes import HyperPipes, HyperPipe
 from randomforest.randomForest import RandomForest
 from subsets.subset import Subset
 from sklearn.datasets import load_iris
 import random
 import numpy as np
+from operator import itemgetter
 
 class HybridForest:
 
@@ -57,20 +58,27 @@ class HybridForest:
     def predict (self, newObject): # newObject é uma lista com os atributos
         print("\n\n\n\n\n _____________________________________ ENTROU PREDICT__________________")
         classeCalculada = []
+        scoresHp=[]
         classes = []
         newObj = self.obj.ajustPrediction(np.array(newObject))
         for i in range (self.nDeClassificadores):
-            print(np.array(self.clf))
-            print(len(self.clf))
+            #print(np.array(self.clf))
+            #print(len(self.clf))
             print("\n\n\n\n\n clf[i] = ", self.clf[i] )
-            classeCalculada.append(self.clf[i].predict(newObj))
-        for item in classeCalculada:
-            classes.append(item[0])
+            if isinstance(self.clf[i], list):
+                for pipe in self.clf[i]:
+                    scoresHp.append(pipe.partial_contains(newObj))
+                    print("scoresHp = ", scoresHp)
+                classeCalculada.append(max(scoresHp,key=itemgetter(0))[1])
+                scoresHp=[]
+            else:
+                pred = self.clf[i].predict(newObj)
+                classeCalculada.append(pred[0].tolist())
 
-        print(self.bd)
-        print(classes)
+        #print(self.bd)
+        print(classeCalculada)
         print("\n\n\n classe do novo objeto = ")
-        return mode(classes)
+        return mode(classeCalculada)
 
 def main():
     iris = load_iris()
