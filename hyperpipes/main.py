@@ -20,9 +20,10 @@ test_instance_x = array([2.1, 2.3, 1.5, 1.6])
 test_instance_y = array([2.0])
 
 classifier = HyperPipes()
-classifier.fit(data_x, data_y)
+cl = classifier.fit(data_x, data_y)
 prediction = classifier.predict(test_instance_x)
-
+print(classifier)
+print(cl)
 print(test_instance_x)
 print(prediction)
 

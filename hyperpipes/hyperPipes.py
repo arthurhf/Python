@@ -1,5 +1,6 @@
 import numpy as np
-
+from operator import itemgetter
+import copy
 
 class HyperPipe:
 
@@ -53,8 +54,9 @@ class HyperPipe:
 
 class HyperPipes:
 
-    def __init__(self):
+    def __init__(self, hp=None):
         self.hyper_pipes = []
+
 
     def fit(self, data_x, data_y):
         self.y_unique_values, self.y_unique_indices = np.unique(
@@ -78,11 +80,12 @@ class HyperPipes:
             #print("\n\ndata_x_filtered = ", data_x_filtered )
             self.hyper_pipes[i].fit(data_x_filtered, target_class)
 
-        return None
+        return self.hyper_pipes
 
     def predict(self, data_x):
         scores = []
         for i in range(self.n_y_unique):
             scores.append(self.hyper_pipes[i].partial_contains(data_x))
-
-        return scores
+        print("\n\n\n Hyperpipes scores = ", scores)
+        classe = max(scores,key=itemgetter(0))[1]
+        return classe
