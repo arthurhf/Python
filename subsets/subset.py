@@ -27,11 +27,11 @@ class Subset:
         aux = aux.transpose()
         'pega as colunas depois de pegar as linhas - tirar as classes'
         'problema: numero de linhas é diferente do número de colunas'
-        almostSubset = self.reduceAttributes(aux, percentageatt)
+        almostSubset, attributes = self.reduceAttributes(aux, percentageatt)
         subset = np.array(almostSubset)
         subset = subset.transpose()
         #print(subset)
-        return subset
+        return subset,attributes
 
     def reduceInstance(self, dataset, percentage):
 
@@ -74,7 +74,7 @@ class Subset:
         #print(array)
         #print("Choose {} multiple random row from 2D array".format(int(percentage*numLinha)))
         #print("\n\n\n self.nAttributes = ", self.nAttributes)
-        randomRows = self.nAttributes
+        randomRows = np.random.randint(numLinha, size=int(percentage*numLinha)) #mudar para fazer np.random.randint(numLinha, size=int(percentage*numLinha))
 
         randomRowsList = randomRows.tolist()
         arrayList = array.tolist()
@@ -85,7 +85,7 @@ class Subset:
 
         print(np.array(subsetAux))
         print(np.array(subsetAux.append(classes)))
-        return subsetAux
+        return subsetAux,np.unique(randomRows)
 
     def ajustPrediction(self, array):
         #print("\n\n\n\n ajustPrediction, ")

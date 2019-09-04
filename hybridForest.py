@@ -17,15 +17,19 @@ class HybridForest:
         self.bd =[]
         self.clf =[]
         self.obj = Subset(np.array(data), self.percentageatt)
-
+        self.att = []
 
     def fit (self, data_x, classes):
 
         for i in range (self.nDeClassificadores):
-            #print("iteração i = ")
+            print("iteração i = ", i)
             #print(i)
             #print(self.nDeClassificadores)
-            self.bd.append(self.obj.createsubset(data_x, self.percentageatt, self.percentageinst, classes))
+            sbd, att = self.obj.createsubset(data_x, self.percentageatt, self.percentageinst, classes)
+            print("sbd = ", sbd)
+
+            self.bd.append(sbd)
+            self.att.append(att)
             # data_x_filtered, classes_filtered = bd[i] ver se separa objetos das classes
             #print("\n\n\nself.bd[i] =")
             #print(self.bd[i])
@@ -60,8 +64,12 @@ class HybridForest:
         classeCalculada = []
         scoresHp=[]
         classes = []
-        newObj = self.obj.ajustPrediction(np.array(newObject))
+        #newObj = self.obj.ajustPrediction(np.array(newObject))
         for i in range (self.nDeClassificadores):
+            print("att[] = ", self.att[i])
+            print("newObject = ", newObject)
+            arr = np.array(newObject)
+            newObj = arr[:,self.att[i]]
             #print(np.array(self.clf))
             #print(len(self.clf))
             print("\n\n\n\n\n clf[i] = ", self.clf[i] )
