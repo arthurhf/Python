@@ -1,5 +1,5 @@
-import statistics
-from statistics import mode
+import collections
+from collections import Counter
 from hyperpipes.hyperPipes import HyperPipes, HyperPipe
 from randomforest.randomForest import RandomForest
 from subsets.subset import Subset
@@ -20,7 +20,8 @@ class HybridForest:
         self.att = []
 
     def fit (self, data_x, classes):
-
+        print("data_x = ",data_x)
+        print("classes = ", classes)
         for i in range (self.nDeClassificadores):
             print("iteração i = ", i)
             #print(i)
@@ -51,7 +52,7 @@ class HybridForest:
             #print("\n\n\ndata_x_list = ")
             #print(data_x_list)
             #print("\n\n\nclasses_list = ")
-            #print(classes_list)
+            print(classes_list)
             if classificador == 1:
                 self.clf.append(hp.fit(data_x_list,classes_list)) # testar
                 #print("\n\n\n entrou hp, ", self.clf)
@@ -66,8 +67,8 @@ class HybridForest:
         classes = []
         #newObj = self.obj.ajustPrediction(np.array(newObject))
         for i in range (self.nDeClassificadores):
-            print("att[] = ", self.att[i])
-            print("newObject = ", newObject)
+            #print("att[] = ", self.att[i])
+            #print("newObject = ", newObject)
             arr = np.array(newObject)
             newObj = arr[:,self.att[i]]
             #print(np.array(self.clf))
@@ -76,7 +77,7 @@ class HybridForest:
             if isinstance(self.clf[i], list):
                 for pipe in self.clf[i]:
                     scoresHp.append(pipe.partial_contains(newObj))
-                    print("scoresHp = ", scoresHp)
+                    #print("scoresHp = ", scoresHp)
                 classeCalculada.append(max(scoresHp,key=itemgetter(0))[1])
                 scoresHp=[]
             else:
@@ -84,9 +85,9 @@ class HybridForest:
                 classeCalculada.append(pred[0].tolist())
 
         #print(self.bd)
-        print(classeCalculada)
+        print("classes possiveis = ",classeCalculada)
         print("\n\n\n classe do novo objeto = ")
-        return mode(classeCalculada)
+        return Counter(classeCalculada).most_common(1)
 
 def main():
     iris = load_iris()
@@ -94,7 +95,9 @@ def main():
     target = iris.target
     hf=HybridForest(data, 10, 0.8, 0.2)
     hf.fit(data, target)
-    print(hf.predict([[5.5, 2.4, 3.7, 1.0]]))
+    new = [[5.5, 2.4, 3.7, 1.0]]
+    print("novo objeto= ", new)
+    print(hf.predict(new))
 
 if __name__ == '__main__':
     main()

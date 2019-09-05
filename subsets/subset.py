@@ -30,7 +30,7 @@ class Subset:
         almostSubset, attributes = self.reduceAttributes(aux, percentageatt)
         subset = np.array(almostSubset)
         subset = subset.transpose()
-        #print(subset)
+        print("dento do createsubset = ", subset)
         return subset,attributes
 
     def reduceInstance(self, dataset, percentage):
@@ -55,7 +55,7 @@ class Subset:
             if not arrayList[i] in subsetAux:
                 subsetAux.append(arrayList[i])
 
-        print(np.array(subsetAux))
+        #rint(np.array(subsetAux))
         #print("Fim reduceInstance \n\n")
         return np.array(subsetAux)
 
@@ -83,7 +83,8 @@ class Subset:
             if not arrayList[i] in subsetAux:
                 subsetAux.append(arrayList[i])
 
-        print(np.array(subsetAux))
+        #subsetAux = np.array(subsetAux.append(classes))
+        #print(np.array(subsetAux))
         print(np.array(subsetAux.append(classes)))
         return subsetAux,np.unique(randomRows)
 

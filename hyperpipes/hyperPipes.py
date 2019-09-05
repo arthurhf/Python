@@ -51,16 +51,15 @@ class HyperPipe:
         print(self.numerical_bounds)
         count = 0
         for attribute in data_x:
-            print(attribute)
+            #print(attribute)
             for i in range(self.n_dimensions):
-                print(i)
+                #print(i)
                 #print(data_x[i])
                 print(attribute[i])
-                #if(data_x[i] > self.numerical_bounds[i][0] and data_x[i] < self.numerical_bounds[i][1]):
                 if(attribute[i] > self.numerical_bounds[i][0] and attribute[i] < self.numerical_bounds[i][1]):
                 #if (all(item > self.numerical_bounds[i][0] and item < self.numerical_bounds[i][1] for item in data_x[i])):
                     count += 1
-                    print("count = ", count)
+                    #print("count = ", count)
         score = float(count) / self.n_dimensions
         print("score = ", score)
 

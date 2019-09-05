@@ -16,7 +16,7 @@ data_x = data
 data_y = iris.target
 #print('\n\n\n\ndata_y ', data_y)
 
-test_instance_x = array([2.1, 2.3, 1.5, 1.6])
+test_instance_x = array([[5.5, 2.4, 3.7, 1.0]])
 test_instance_y = array([2.0])
 
 classifier = HyperPipes()
@@ -25,7 +25,7 @@ prediction = classifier.predict(test_instance_x)
 print(classifier)
 print(cl)
 print(test_instance_x)
-print(prediction)
+print("classe do novo objeto= ",prediction)
 
 # hp_plt = HyperPipesPlot(points)
 # hp_plt.add_plot_point(point)

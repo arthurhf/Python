@@ -17,7 +17,7 @@ class RandomForest:
 
     def predict (self, obj):
         #print(self.clf.feature_importances_)
-        return self.clf.predict([obj])
+        return self.clf.predict(obj)
 
 def main():
     iris = load_iris()
@@ -25,7 +25,7 @@ def main():
     target = iris.target
     rf=RandomForest()
     rf.fit(data, target)
-    print(rf.predict([5.5, 2.4, 3.7, 1.0]))
+    print(rf.predict([[5.5, 2.4, 3.7, 1.0]]))
 
 if __name__ == '__main__':
     main()
