@@ -77,16 +77,17 @@ class HybridForest:
             if isinstance(self.clf[i], list):
                 for pipe in self.clf[i]:
                     scoresHp.append(pipe.partial_contains(newObj))
-                    #print("scoresHp = ", scoresHp)
+                print("scoresHp = ", scoresHp)
                 classeCalculada.append(max(scoresHp,key=itemgetter(0))[1])
                 scoresHp=[]
             else:
                 pred = self.clf[i].predict(newObj)
+                print("pred = ", pred)
                 classeCalculada.append(pred[0].tolist())
 
         #print(self.bd)
         print("classes possiveis = ",classeCalculada)
-        print("\n\n\n classe do novo objeto = ")
+        print("\n\n\n")
         return Counter(classeCalculada).most_common(1)
 
 def main():
@@ -95,9 +96,13 @@ def main():
     target = iris.target
     hf=HybridForest(data, 10, 0.8, 0.2)
     hf.fit(data, target)
-    new = [[5.5, 2.4, 3.7, 1.0]]
-    print("novo objeto= ", new)
-    print(hf.predict(new))
-
+    new = [[ 5.1,  3.8,  1.9,  0.4], [ 6.9,  3.1,  4.9,  1.5],[ 6.9,  3.2,  5.7,  2.3] ]
+    preds = []
+    for item in new:
+        print("novo objeto= ", item)
+        pred = hf.predict([item])
+        print("classe = ", pred)
+        preds.append(pred)
+    print("preds = ", preds)
 if __name__ == '__main__':
     main()

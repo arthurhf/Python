@@ -4,6 +4,8 @@ from hyperpipes.hyperPipes import HyperPipes, HyperPipe
 from randomforest.randomForest import RandomForest
 from sklearn.datasets import load_iris
 from hybridForest import HybridForest
+from sklearn.model_selection import train_test_split
+import numpy as np
 
 def crossVal(model, data, classes):
     return cross_val_score(model, data, classes)
@@ -24,23 +26,24 @@ def main():
     rf=RandomForest()
     rf.fit(data, target)
 
-    new = [[ 6. ,  3. ,  4.8,  1.8],
-       [ 6.9,  3.1,  5.4,  2.1],
-       [ 6.7,  3.1,  5.6,  2.4],
-       [ 6.9,  3.1,  5.1,  2.3],
-       [ 5.8,  2.7,  5.1,  1.9],
-       [ 6.8,  3.2,  5.9,  2.3],
-       [ 6.7,  3.3,  5.7,  2.5],
-       [ 6.7,  3. ,  5.2,  2.3],
-       [ 6.3,  2.5,  5. ,  1.9],
-       [ 6.5,  3. ,  5.2,  2. ],
-       [ 6.2,  3.4,  5.4,  2.3],
-       [ 5.9,  3. ,  5.1,  1.8]]
-       
+    complete = []
+    classes = []
+    for item in target:
+        classes.append([item])
+
+    complete = np.append(data, classes)
+
+    X_train, X_test, y_train, y_test = train_test_split(data, classes,test_size=0.33, random_state=42)
+
+
+    new = [[ 6.6,3.,4.4,1.4]]
     for i in range(10):
-        scores_hf.append(hf.predict(new))
-        scores_hp.append(hp.predict(new))
-        scores_rf.append(rf.predict(new))
+        scores_hf.append(hf.predict(X_test))
+        scores_hp.append(hp.predict(X_test))
+        scores_rf.append(rf.predict(X_test))
+
+    print(X_train)
+    print(X_test)
     print("scores_hf = ", scores_hf)
     print("scores_hp = ", scores_hp)
     print("scores_rf = ", scores_hf)

@@ -48,7 +48,7 @@ class HyperPipe:
         #print(len(data_x))
         print(data_x)
         #print(self.n_dimensions)
-        print(self.numerical_bounds)
+        #print(self.numerical_bounds)
         count = 0
         for attribute in data_x:
             #print(attribute)

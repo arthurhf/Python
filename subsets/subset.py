@@ -30,7 +30,7 @@ class Subset:
         almostSubset, attributes = self.reduceAttributes(aux, percentageatt)
         subset = np.array(almostSubset)
         subset = subset.transpose()
-        print("dento do createsubset = ", subset)
+        #print("dento do createsubset = ", subset)
         return subset,attributes
 
     def reduceInstance(self, dataset, percentage):
